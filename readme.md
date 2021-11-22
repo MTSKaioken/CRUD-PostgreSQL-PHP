@@ -1,10 +1,10 @@
 
 ## O projeto deve:
 
-- [ x ] Create
-- [ x ] Read
-- [ x ] Update
-- [ x ] Delete
+- [x] Create
+- [x] Read
+- [x] Update
+- [x] Delete
 
 ## Requisistos
 - Feito em PHP 8.0.13, então preferencialmente esta versão ou equivalente
