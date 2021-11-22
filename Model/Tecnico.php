@@ -30,4 +30,3 @@ class Tecnico
         return $this->salario;
     }
 }
-?>

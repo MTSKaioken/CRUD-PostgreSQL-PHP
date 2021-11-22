@@ -5,9 +5,17 @@ class Produto
     private int $codigo;
     private String $descricao;
     private int $estoque;
-    private bool $ativo;
+    private String $ativo;
     private float $valor;
     private float $custo;
+
+    public function setCodigo($codigo){
+        $this->codigo = $codigo;
+    }
+
+    public function getCodigo(){
+        return $this->codigo;
+    }
 
     public function setDescricao($descricao){
         $this->descricao = $descricao;
@@ -51,4 +59,3 @@ class Produto
     }
 
 }
-?>

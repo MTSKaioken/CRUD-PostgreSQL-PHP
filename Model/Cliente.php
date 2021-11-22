@@ -8,6 +8,14 @@ class Cliente
     private String $celular;
     private String $email;
 
+    public function setCodigo($codigo){
+        $this->codigo = $codigo;
+    }
+
+    public function getCodigo(){
+        return $this->codigo;
+    }
+
     public function setNome($nome){
         $this->nome = $nome;
     }

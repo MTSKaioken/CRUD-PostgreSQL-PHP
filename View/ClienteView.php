@@ -12,19 +12,31 @@
          <a href="ClienteView.php">Clientes</a>
         <center>
             <form action="../Controllers/ClienteController.php" method="post">
+            <fieldset>
+                <legend>Cliente:</legend>
+                <input type="hidden" name="codigo" value="<?= isset($_GET['update']) ? $_GET['update'] : ''; ?>"><br>
                 <label for="nome">Nome</label><br>
-                <input type="text" name="nome" placeholder="Contratado da Silva" value="" required autofocus><br>
+                <input type="text" name="nome" placeholder="Contratado da Silva" value="<?= isset($_GET['update']) ? $_GET['nome'] : ''; ?>" required autofocus><br>
 
                 <label for="cpf">CPF</label><br>
-                <input type="text" name="cpf" placeholder="xxx.xxx.xxx-xx" required><br>
+                <input type="text" name="cpf" placeholder="xxx.xxx.xxx-xx" value="<?= isset($_GET['update']) ? $_GET['cpf'] : ''; ?>"required><br>
                 
                 <label for="celular">Celular</label><br>
-                <input type="text" name="celular" placeholder="(xx) xxxxx-xxxx" required><br>
+                <input type="text" name="celular" placeholder="(xx) xxxxx-xxxx" value="<?= isset($_GET['update']) ? $_GET['celular'] : ''; ?>" required><br>
                 
                 <label for="email">Email</label><br>
-                <input type="email" name="email" placeholder="exemple@exemple.com" required><br><br>
+                <input type="email" name="email" placeholder="exemple@exemple.com" value="<?= isset($_GET['update']) ? $_GET['email'] : ''; ?>" required><br><br>
 
-                <input type="submit" value="Cadastrar"> <input type="hidden" name="method" value="callCreate">
+                <?php
+                    if(isset($_GET["update"])){ 
+                        echo "<input type='hidden' name='method' value='callUpdate'>";
+                    }
+                    else{
+                        echo "<input type='hidden' name='method' value='callCreate'>";
+                } 
+                ?>
+            <input type="submit" value="Enviar">
+            </fieldset>
             </form>
          <br>
 
@@ -53,7 +65,9 @@
                              <td>" . $value["celular"] . "</td>
                              <td>" . $value["email"] . "</td>
                              <td><form action='../Controllers/ClienteController.php' method='get'>
-                             <a href='../Controllers/ClienteController.php?delete= " . $value["codigo"] ."'>Apagar</a></td></tr>";
+                             <a href='../Controllers/ClienteController.php?delete= ".$value["codigo"]."'>Apagar</a></form>
+                             <td><form action='../View/ClienteView.php' method='get'>
+                             <a href='../View/ClienteView.php?update=".$value["codigo"]."&nome=".$value["nome"]."&cpf=".$value ["cpf"]."&celular=".$value["celular"]."&email=".$value["email"]."'>atualizar</a></form></td></tr>";
                          }  
                      ?>
                  </tbody>

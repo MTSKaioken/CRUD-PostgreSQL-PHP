@@ -23,7 +23,7 @@ class ProdutoDao{
         try {
             include "ConnectionFactory.php";
             $con =  ConnectionFactory::getConnection();
-            $sql = "SELECT * FROM Produtos";
+            $sql = "SELECT * FROM Produtos Order by Codigo";
             $stmt = $con->prepare($sql);   
             $stmt->execute();
             $fetch_produto = $stmt -> fetchAll();
@@ -37,11 +37,19 @@ class ProdutoDao{
           }
     }
 
-    public function update(){
+    public function update(Produto $p){
         try {
             include "ConnectionFactory.php";
             $con =  ConnectionFactory::getConnection();
-            $sql = "UPDATE Produtos set Descricao=?, Ativo=?, Estoque=?, Custo=?, Valor=? where Codigo=?";
+            $sql = "UPDATE Produtos set Descricao=?, Ativo=?, Estoque=?, Custo_Compra=?, Valor_Venda=? where Codigo=?";
+            $stmt = $con->prepare($sql);
+            $stmt->bindParam(1, $p->getDescricao());
+            $stmt->bindParam(2, $p->getAtivo());
+            $stmt->bindParam(3, $p->getEstoque());
+            $stmt->bindParam(4, $p->getCusto());
+            $stmt->bindParam(5, $p->getValor());
+            $stmt->bindParam(6, $p->getCodigo());
+            $stmt->execute();
 
         } catch (PDOException $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
@@ -58,4 +66,3 @@ class ProdutoDao{
           }
     }
 }
-?>

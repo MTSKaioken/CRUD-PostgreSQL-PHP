@@ -23,7 +23,7 @@ class TecnicoDao{
         try {
             include "ConnectionFactory.php";
             $con =  ConnectionFactory::getConnection();
-            $sql = "SELECT * FROM Tecnicos;";
+            $sql = "SELECT * FROM Tecnicos Order by Codigo";
             $stmt = $con->prepare($sql);   
             $stmt->execute();
             $array = $stmt -> fetchAll();
@@ -37,11 +37,16 @@ class TecnicoDao{
           }
     }
 
-    public function update(){
+    public function update(Tecnico $t){
         try {
             include "ConnectionFactory.php";
             $con =  ConnectionFactory::getConnection();
-            $sql = "UPDATE Tecnicos set Nome=?, Salario=?, Valor=? where Codigo=?";
+            $sql = "UPDATE Tecnicos set Nome=?, Salario=? where Codigo=?";
+            $stmt = $con->prepare($sql);
+            $stmt->bindParam(1, $t->getNome());
+            $stmt->bindParam(2, $t->getSalario());
+            $stmt->bindParam(3, $t->getCodigo());
+            $stmt->execute();
 
         } catch (PDOException $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";

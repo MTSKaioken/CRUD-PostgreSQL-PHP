@@ -1,7 +1,3 @@
-<?php
-    
-     ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,28 +10,38 @@
          <a href="TecnicoView.php">Tecnicos</a>
          <a href="ProdutoView.php">Produtos</a>
          <a href="ClienteView.php">Clientes</a>
-        <center>
-         <form action="../Controllers/ProdutoController.php" method="post" oninput="x.value=parseInt(estoque.value)">
+         <center>
+         <form action="../Controllers/ProdutoController.php" method="post" oninput="estoque_min.value=(estoque_atual.value)">
+         <fieldset>
+             <legend>Produto:</legend>
+             <input type="hidden" name="codigo" value="<?= isset($_GET['update']) ? $_GET['update'] : ''; ?>"><br>
              <label for="nome">Descrição:</label><br>
-             <textarea name="descricao" style="width:450px; height:150px; resize: none;" required autofocus>
-             </textarea><br>
-
+             <textarea name="descricao" style="width:250px; height:50px; resize: none;" maxlength="50" required>
+             <?php echo htmlspecialchars(isset($_GET['update']) ? $_GET['descricao'] : '');?> </textarea><br>
              <label for="estoque">Estoque:</label><br>
-             0 <input type="range" name="estoque" value="50" max="150" required>
+             0 <input type="range" name="estoque_atual" value="<?= isset($_GET['update']) ? $_GET['estoque'] : ''; ?>" max="150" required>
              
-             <output name="x" for="estoque">50</output>
+             <output name="estoque_min" for="estoque_atual"> <?php echo htmlspecialchars(isset($_GET['update']) ? $_GET['estoque'] : ''); ?></output>
              <br><br>
 
              <label for="valor_venda">Valor em R$</label><br>
-             <input type="number" name="valor_venda" placeholder="R$1.200,00" min="0" step="100" required>
+             <input type="number" name="valor_venda" placeholder="R$1.200,00" min="0" step="100" value="<?= isset($_GET['update']) ? $_GET['valor'] : ''; ?>" required>
              <br>
-             <input type="checkbox" name="ativo">
+             <input type="checkbox" name="ativo" <?php echo htmlspecialchars($_GET['ativo'] == 'on' ? 'checked' : ''); ?>>
              <label for="ativo">Ativo</label><br>
 
              <label for="custo_compra">Custo em R$</label><br>
-             <input type="number" name="custo_compra" placeholder="R$50,00" min="0" step="25" required><br><br>
-             
-             <input type="submit" value="cadastrar"> <input type="hidden" name="?" value="Atualizar">
+             <input type="number" name="custo_compra" placeholder="R$50,00" min="0" step="25" value="<?= isset($_GET['update']) ? $_GET['custo'] : ''; ?>"required><br><br>
+         </fieldset>
+             <?php
+                if(isset($_GET["update"])){ 
+                    echo "<input type='hidden' name='method' value='callUpdate'>";
+                }
+                else{
+                    echo "<input type='hidden' name='method' value='callCreate'>";
+                } 
+            ?>
+            <input type="submit" value="Enviar">
          </form>
 
          <br>
@@ -65,7 +71,10 @@
                             <td>" . $value["valor_venda"] . "</td>
                             <td>" . $value["ativo"] . "</td>
                             <td>" . $value["custo_compra"] . "</td>
-                            <td><input type=submit value=apagar></td></tr>";
+                            <td><form action='../Controllers/ProdutoController.php' method='get'>
+                            <a href='../Controllers/ProdutoController.php?delete= ".$value["codigo"]."'>Apagar</a></form>
+                            <td><form action='../View/ProdutoView.php' method='get'>
+                            <a href='../View/ProdutoView.php?update=".$value["codigo"]."&descricao=".$value["descricao"]."&estoque=".$value["estoque"]."&valor=".$value["valor_venda"]."&ativo=".$value["ativo"]."&custo=".$value["custo_compra"]."'>atualizar</a></form></td></tr>";
                         }  
                     ?>
                 </tbody>
