@@ -13,7 +13,6 @@
         <center>
             <form action="../Controllers/ClienteController.php" method="post">
             <fieldset>
-                <legend>Cliente:</legend>
                 <input type="hidden" name="codigo" value="<?= isset($_GET['update']) ? $_GET['update'] : ''; ?>"><br>
                 <label for="nome">Nome</label><br>
                 <input type="text" name="nome" placeholder="Contratado da Silva" value="<?= isset($_GET['update']) ? $_GET['nome'] : ''; ?>" required autofocus><br>

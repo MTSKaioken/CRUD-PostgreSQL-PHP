@@ -13,7 +13,6 @@
          <center>
          <form action="../Controllers/ProdutoController.php" method="post" oninput="estoque_min.value=(estoque_atual.value)">
          <fieldset>
-             <legend>Produto:</legend>
              <input type="hidden" name="codigo" value="<?= isset($_GET['update']) ? $_GET['update'] : ''; ?>"><br>
              <label for="nome">Descrição:</label><br>
              <textarea name="descricao" style="width:250px; height:50px; resize: none;" maxlength="50" required>

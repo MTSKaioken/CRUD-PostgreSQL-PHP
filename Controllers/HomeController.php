@@ -5,4 +5,3 @@ class HomeController {
         echo "testeeeeeeeeeee";
     }
 }
-?>

@@ -19,7 +19,6 @@
         <center>
          <form action="../Controllers/TecnicoController.php" method="post">
          <fieldset>
-            <legend>Tecnico:</legend>
             <input type="hidden" name="codigo" value="<?= isset($_GET['update']) ? $_GET['update'] : ''; ?>"><br>
              <label for="nome">Nome:</label><br>
              <input type="text" placeholder="Contratado da Silva" name="nome" value="<?= isset($_GET['update']) ? $_GET['nome'] : ''; ?>"><br>
